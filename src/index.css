@@ -1,0 +1,111 @@
+html, body, #root, .App {
+	height: 100%;
+	width: 100%;
+	background: #000;
+}
+
+.header-icon {
+	max-width: 7rem;
+}
+
+.header__logo {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	max-width: 125px;
+	color: white;
+	z-index: 120;
+} 
+
+.header__logo-image {
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+}
+
+.container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+	padding: 20px;
+}
+.content {
+	display:flex;
+	flex-flow: row;
+	align-items:flex-start;
+}
+
+@media (max-width: 756px){
+  .content {
+    flex-direction: column;
+  }
+}
+
+.ticket-card {
+	max-width: 650px;
+	background: transparent;
+	border: 4px solid white;
+	border-radius: 12px;
+	box-shadow: 10px 10px 0px #0cc70c;
+}
+
+.content-piece {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	margin: 0.5rem;
+	flex-basis: fit-content;
+}
+
+.content-piece img {
+	max-width: 95%;
+}
+
+.content-details {
+	display: flex;
+	flex-direction: column;
+	margin: 0.5rem;
+	overflow-wrap: break-word;
+}
+
+.collect-button {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;	
+}
+
+.wallet-option-list {
+	list-style: none;
+}
+
+.wallet-option-list li {
+	margin: 1em;
+}
+.wallet-option {
+	display: flex;
+	align-items: center;
+}
+.wallet-branding {
+	width: 2em;
+	margin-right:0.5em
+}
+
+
+.help-container {
+	display: flex;
+	flex-flow: column;
+	justify-content: space-around;
+	align-items: center;
+	padding: 20px;
+}
+
+.help-text {
+	max-width: 50vw;
+	padding:5px;
+}
+
+.help-text p {
+	color: black;
+	overflow-wrap: break-word;
+}
