@@ -102,8 +102,7 @@ export default function AlgorandWalletConnector(
 
   const walletOptions = [];
   for (const [k, v] of Object.entries(allowedWallets)) {
-    // NOTE: remove if you want other wallets
-    if (k !== "wallet-connect") continue;
+    if (k !== "wallet-connect" && k !== "my-algo-connect") continue;
 
     walletOptions.push(
       <li key={k}>
@@ -119,7 +118,7 @@ export default function AlgorandWalletConnector(
             <img
               alt="wallet-branding"
               className="wallet-branding"
-              src={v.img(props.darkMode)}
+              src={v.img(false)}
             />
             <h5>{v.displayName()}</h5>
           </div>

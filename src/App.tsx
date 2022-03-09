@@ -20,9 +20,7 @@ import {
   isMobileSafari,
   MobileView,
 } from "react-device-detect";
-import { useParams, useSearchParams } from "react-router-dom";
-
-const IPFS_URL = "https://ipfs.io/ipfs/";
+import { useSearchParams } from "react-router-dom";
 
 function App() {
   const sw = new SessionWallet(conf.network);
@@ -41,7 +39,7 @@ function App() {
   const [signed, setSigned] = React.useState(false);
   const [open, setOpen] = React.useState(false);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const escrow = searchParams.get("escrow");
   const addr = searchParams.get("addr");
   const secret = searchParams.get("secret")?.replaceAll(" ", "+");
@@ -377,7 +375,7 @@ function HelpDropdown() {
 }
 
 function SafariBugFixDialog() {
-  const [isOpen, _] = React.useState(isMobileSafari);
+  const [isOpen] = React.useState(isMobileSafari);
   return (
     <Dialog
       isOpen={isOpen}
