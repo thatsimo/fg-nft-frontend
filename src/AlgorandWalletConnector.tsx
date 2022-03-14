@@ -101,8 +101,31 @@ export default function AlgorandWalletConnector(
   }
 
   const walletOptions = [];
+
+  walletOptions.push(
+    <li key={"wallet-connect"}>
+      <Button
+        id={"wallet-connect"}
+        large={true}
+        fill={true}
+        minimal={true}
+        outlined={true}
+        onClick={handleSelectedWallet}
+      >
+        <div className="wallet-option">
+          <img
+            alt="wallet-branding"
+            className="wallet-branding"
+            src={"pera-wallet-black.svg"}
+          />
+          <h5>{"Pera Algo Wallet"}</h5>
+        </div>
+      </Button>
+    </li>
+  );
+
   for (const [k, v] of Object.entries(allowedWallets)) {
-    if (k !== "wallet-connect" && k !== "my-algo-connect") continue;
+    if (k !== "my-algo-connect") continue;
 
     walletOptions.push(
       <li key={k}>
