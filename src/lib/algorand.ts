@@ -11,10 +11,15 @@ import nacl from "tweetnacl";
 import escrow_template from "./contracts/escrow.tmpl.teal";
 
 export const conf = {
-  seeder: "RIEETU27ECG7VCQO5GETZF3J75GWJFIZ365WGMLSP25OAUMKN2ERY45C4E",
+  seeder: "NRZERYHOGZ6VJCPUKONQULV3W4UEF3K35AQERUHWSUHVNSWXNHAHWQCLBA",
   network: "TestNet",
   algod: {
-    host: "https://testnet.algoexplorerapi.io",
+    host: "https://node.testnet.algoexplorerapi.io",
+    port: "",
+    token: "",
+  },
+  indexer: {
+    host: "https://algoindexer.testnet.algoexplorerapi.io",
     port: "",
     token: "",
   },
@@ -24,6 +29,12 @@ const client = new algosdk.Algodv2(
   conf.algod.token,
   conf.algod.host,
   conf.algod.port
+);
+
+const indexer = new algosdk.Indexer(
+  conf.indexer.token,
+  conf.indexer.host,
+  conf.indexer.port
 );
 
 interface SignedTxn {
@@ -111,8 +122,9 @@ function createSignature(
 }
 
 export async function getNFT(asaId: number): Promise<NFT> {
-  const asa = await client.getAssetByID(asaId).do();
-  const p = asa["params"];
+  const asa = await indexer.lookupAssetByID(asaId).do();
+  console.log(asa);
+  const p = asa["asset"]["params"];
 
   // Assumes ipfs:// protocol
   const cid = p["url"].split("://");
@@ -127,12 +139,15 @@ export async function getNFT(asaId: number): Promise<NFT> {
 }
 
 export async function getAsaId(escrow: string): Promise<number> {
-  const ai = await client.accountInformation(escrow).do();
-  if (ai["assets"].length !== 1)
+  const ai = await indexer.lookupAccountByID(escrow).do();
+  if (ai["account"]["assets"].length !== 1)
     throw Error(
-      "Expected 1 ASA for " + escrow + " got: " + ai["assets"].length.toString()
+      "Expected 1 ASA for " +
+        escrow +
+        " got: " +
+        ai["account"]["assets"].length.toString()
     );
-  return ai["assets"][0]["asset-id"];
+  return ai["account"]["assets"][0]["asset-id"];
 }
 
 async function getLsig(addr: string): Promise<LogicSigAccount> {
